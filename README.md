@@ -30,3 +30,6 @@
 ```
 ### Генерация отчета:
 `allure serve ./allure-results`
+
+## Дополнительные ссылки:
+### Page Object - https://playwright.dev/docs/pom
