@@ -133,3 +133,4 @@ dist
 /playwright-report
 /.idea
 package-lock.json
+/allure-results

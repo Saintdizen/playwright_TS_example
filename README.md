@@ -15,3 +15,15 @@
 `npx playwright test example.spec.ts --debug`
 ## Открыть последний отчет:
 `npx playwright show-report`
+
+### Установка Allure [Документация](https://www.npmjs.com/package/allure-playwright)
+`npm install -D allure-playwright`
+### Добавление allure-playwright как основной отчет в playwright.config.ts:
+```typescript
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  reporter: "allure-playwright",
+});
+```
+`allure open ./allure-report`
