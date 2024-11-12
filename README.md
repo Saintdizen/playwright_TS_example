@@ -12,6 +12,7 @@ https://playwright.dev/docs/intro
 
 # Запуск тестов:
 `npx playwright test --debug`
+
 `npx playwright test example.spec.ts --debug`
 # Открыть последний отчет:
 `npx playwright show-report`
