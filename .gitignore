@@ -132,3 +132,4 @@ dist
 /test-results
 /playwright-report
 /.idea
+package-lock.json
