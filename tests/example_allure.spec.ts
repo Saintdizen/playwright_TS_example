@@ -3,20 +3,20 @@ import { allure } from "allure-playwright";
 
 import { PlaywrightDevPage } from './page_object_spec';
 
-test('get started link', async ({ page }) => {
+test('Тест 1 Получние стартовой ссылки', async ({ page }) => {
   await allure.description("Описание или сценарий");
   //
   const playwrightDev = new PlaywrightDevPage(page);
   //
-  await allure.step("Шаг 1", async () => {
+  await allure.step("Шаг 1 Переход на страницу", async () => {
     await playwrightDev.goto();
   });
 
-  await allure.step("Шаг 2", async () => {
+  await allure.step("Шаг 2 Проверка отображение ссылки 'getStarted'", async () => {
     await playwrightDev.getStarted();
   });
 
-  await allure.step("Шаг 3", async () => {
+  await allure.step("Шаг 3 Проверка наличия текста", async () => {
     await expect(playwrightDev.tocList).toHaveText([
       `How to install Playwright`,
       `What's Installed`,
