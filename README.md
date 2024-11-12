@@ -1,7 +1,14 @@
 https://www.npmjs.com/package/playwright
 https://playwright.dev/docs/intro
 
-# Run from your project's root directory
+# Запустить из вашего проекта в корневой папке:
 `npm init playwright@latest`
-# Or create a new project
+# Или создать новый проект:
 `npm init playwright@latest new-project`
+# Открыть последний отчет:
+`npx playwright show-report`
+# Установка дополнительный зависимостей:
+`sudo npx playwright install-deps`
+# Запуск тестов:
+`npx playwright test --debug`
+`npx playwright test example.spec.ts --debug`
