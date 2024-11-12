@@ -1,5 +1,4 @@
-https://www.npmjs.com/package/playwright
-https://playwright.dev/docs/intro
+[Установка playwright](https://www.npmjs.com/package/playwright) | [Документация](https://playwright.dev/docs/intro)
 
 # Создание проекта:
 ## Запустить из вашего проекта в корневой папке:
