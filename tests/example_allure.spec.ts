@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { allure } from "allure-playwright";
 
-import { PlaywrightDevPage } from './page_object_spec';
+import { PlaywrightDevPage } from './page';
 
 test('Тест 1 Получние стартовой ссылки', async ({ page }) => {
   await allure.description("Описание или сценарий");

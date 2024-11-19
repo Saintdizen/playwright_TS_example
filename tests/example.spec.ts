@@ -1,12 +1,15 @@
-import { test, expect } from '@playwright/test';
+//https://playwright.dev/docs/locators
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-  await expect(page).toHaveTitle(/Playwright/);
+import {expect, test} from '@playwright/test';
+import {ExamplePage} from "./page";
+
+test('example', async ({ page }) => {
+    let testPage = new ExamplePage(page);
+    await testPage.open()
+
+    await testPage.clickLinkAndCheck(testPage.link, "//a[text()='playwright']", page)
+    await testPage.clickLinkAndCheck(testPage.link, "//a[text()='playwright']", page)
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-  await page.getByRole('link', { name: 'Get started' }).click();
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
-});
+
+
