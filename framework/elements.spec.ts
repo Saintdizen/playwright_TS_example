@@ -1,27 +1,44 @@
-import {expect, Locator, Page} from "@playwright/test";
+import {expect, Page} from "@playwright/test";
 
-export class Element {
-    public event: Promise<Page>
-    constructor(public xpath: string) {
-        this.event = global.PAGE.context().waitForEvent('page')
+class Pages {
+    private test: Page = global.PAGE;
+    constructor() {
+        global.PAGE.context().on("page", (page: Page) => {
+            this.setPage(page)
+        })
     }
-    public element: Locator = global.PAGE.locator(this.xpath)
+    private setPage(page: Page): void {
+        this.test = page
+    }
+    page(): Page {
+        return this.test
+    }
+}
 
-    getXpath() {
-        return this.xpath;
+class Options extends Pages {
+    constructor(public xpath: string) {
+        super()
     }
 
     async click(): Promise<void> {
-        console.log(this.event)
-        await global.PAGE.locator(this.xpath).click()
-        const newPage = global.PAGE || await this.event;
-
-
+        const page = this.page()
+        await page.locator(this.xpath).click()
     }
 
     async toBeVisible() {
-        console.log(this.event)
-        const newPage = global.PAGE || await this.event;
-        await expect(newPage.locator(this.xpath)).toBeVisible()
+        const page = this.page()
+        console.log(page.context().pages().length)
+        await expect(page.locator(this.xpath)).toBeVisible()
     }
 }
+
+export class Element extends Options {
+    constructor(public xpath: string) {
+        // @ts-ignore
+        super()
+    }
+    async getXpath() {
+        return this.xpath
+    }
+}
+
