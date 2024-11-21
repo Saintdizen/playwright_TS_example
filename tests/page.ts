@@ -12,4 +12,8 @@ export class ExamplePage extends BasePage {
     async open() {
         await super.open(this.url);
     }
+
+    async closePage() {
+        await super.closePage()
+    }
 }
