@@ -1,13 +1,15 @@
-import {Element} from "../framework/elements.spec";
+import { BasePage } from "../framework/base.spec";
 import {Page} from "@playwright/test";
 
-export class ExamplePage {
-    constructor(private page: Page) {}
-    public url: string = "https://playwright.dev/"
-    public link: Element = new Element('//*[@aria-label="Star microsoft/playwright on GitHub"]')
-    public check: Element = new Element("//a[text()='playwright']")
+export class ExamplePage extends BasePage {
+    constructor(readonly page: Page) { super(page); }
+    readonly url: string = "https://playwright.dev/"
+    readonly link = this.element('//*[@aria-label="Star microsoft/playwright on GitHub"]')
+    readonly check = this.element('//*[text()="playwright"]')
+    readonly check2 = this.element('//*[@id="security-tab"]')
+    readonly check3 = this.element('//*[text()="Reporting Security Issues"]')
 
     async open() {
-        await this.page.goto(this.url)
+        await super.open(this.url);
     }
 }

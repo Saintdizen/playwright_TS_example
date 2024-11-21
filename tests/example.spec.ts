@@ -1,10 +1,12 @@
-import {test} from "../framework/fixtures.spec";
+import {test} from "@playwright/test";
 import {ExamplePage} from "./page";
 
 test('example', async ({page}) => {
-    let testPage = new ExamplePage(page);
+    const testPage = new ExamplePage(page);
     await testPage.open()
     await testPage.link.click()
     await testPage.check.toBeVisible()
-    await testPage.link.click()
+    await testPage.check2.click()
+    await page.bringToFront()
+    await testPage.check3.toBeVisible()
 });
