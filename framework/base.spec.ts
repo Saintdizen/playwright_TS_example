@@ -2,7 +2,7 @@ import {Page, expect} from "@playwright/test";
 
 export class BasePage {
     static pages: Page[] = [];
-    constructor(readonly page: Page) {}
+    constructor(readonly page: Page) {  }
 
     async initPage(): Promise<Page> {
         return await new Promise(async (resolve) => {

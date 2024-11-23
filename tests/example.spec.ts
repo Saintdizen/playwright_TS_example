@@ -1,23 +1,19 @@
-import {test} from "@playwright/test";
-import {ExamplePage} from "./page";
+import {test} from "../framework/fixtures.spec";
 
 test.describe('example', () => {
-    let testPage: ExamplePage;
 
-    test.beforeEach(async ({ page }) => {
-        testPage = new ExamplePage(page);
-    });
+    // test.beforeEach(async ({ page }) => { /**/ });
 
-    test('example', async () => {
-        await testPage.open()
+    test('example', async ({pages}) => {
+        await pages.examplePage.open()
         //
-        await testPage.link.click()
-        await testPage.check.toBeVisible()
-        await testPage.closePage()
+        await pages.examplePage.link.click()
+        await pages.examplePage.check.toBeVisible()
+        await pages.examplePage.closePage()
         //
-        await testPage.link.click()
-        await testPage.check.toBeVisible()
-        await testPage.check2.click()
-        await testPage.check3.toBeVisible()
+        await pages.examplePage.link.click()
+        await pages.examplePage.check.toBeVisible()
+        await pages.examplePage.check2.click()
+        await pages.examplePage.check3.toBeVisible()
     });
 });
