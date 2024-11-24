@@ -1,16 +1,16 @@
 import {Page, expect} from "@playwright/test";
+import vars from "./vars.spec";
 
 export class BasePage {
-    static pages: Page[] = [];
     constructor(readonly page: Page) {  }
 
     async initPage(): Promise<Page> {
         return await new Promise(async (resolve) => {
             try {
-                BasePage.pages = await Promise.all([this.page.context().waitForEvent("page", {timeout: 750})])
-                resolve(BasePage.pages[BasePage.pages.length - 1]);
+                vars.pages = await Promise.all([this.page.context().waitForEvent("page", {timeout: 750})])
+                resolve(vars.pages[vars.pages.length - 1]);
             } catch (e) {
-                resolve(BasePage.pages[BasePage.pages.length - 1] || this.page)
+                resolve(vars.pages[vars.pages.length - 1] || this.page)
             }
         })
     }
@@ -18,7 +18,7 @@ export class BasePage {
     async closePage(): Promise<void> {
         const page = await this.initPage()
         await page.close()
-        BasePage.pages = []
+        vars.pages = []
         const page1 = await this.initPage()
         await page1.bringToFront()
     }

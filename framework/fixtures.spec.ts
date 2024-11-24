@@ -6,8 +6,6 @@ type AllPages = {
 };
 
 export const test = base.extend<AllPages>({
-    pages: async ({page}, use) => {
-        await use(new Pages(page))
-    }
+    pages: async ({page}, use) => await use(new Pages(page))
 });
 export { expect } from '@playwright/test';
