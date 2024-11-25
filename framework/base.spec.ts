@@ -15,6 +15,13 @@ export class BasePage {
         })
     }
 
+    async textContainsPage(str: string): Promise<void> {
+        const page = await this.initPage()
+        const collection = await page.locator(`//body//*[contains(normalize-space(text()), '${str}')]`).count()
+        console.log(collection)
+        //await expect(collection).toBeVisible()
+    }
+
     async closePage(): Promise<void> {
         const page = await this.initPage()
         await page.close()
