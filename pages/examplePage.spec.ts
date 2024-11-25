@@ -11,7 +11,6 @@ export class ExamplePage extends BasePage {
     readonly check3 = super.element('//*[text()="Reporting Security Issues"]')
     readonly links = super.element('//a')
 
-
     async open() {
         await super.open(this.url);
     }
