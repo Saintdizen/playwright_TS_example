@@ -35,8 +35,12 @@ export class BasePage {
         return new Element(xpath, this.page);
     }
 
-    a(text: string): Element {
+    a(text: string): Link {
         return new Link(text, this.page);
+    }
+
+    button(text: string): Button {
+        return new Button(text, this.page);
     }
 }
 
@@ -89,6 +93,13 @@ class Element extends BaseElement {
 class Link extends BaseElement {
     constructor(readonly text: string, readonly page: Page) { super(
         `//a[text()='${text}'] | //a[@aria-label='${text}'] | //a[@id='${text}']`,
+        page)
+    }
+}
+
+class Button extends BaseElement {
+    constructor(readonly text: string, readonly page: Page) { super(
+        `//button[text()='${text}'] | //button[@aria-label='${text}'] | //button[@id='${text}']`,
         page)
     }
 }
