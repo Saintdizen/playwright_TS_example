@@ -23,6 +23,28 @@ export class BasePage {
         }
     }
 
+    async switchFirstWindow(): Promise<void> {
+        const page = await this.initPage()
+        await page.context().pages()[0].bringToFront()
+    }
+
+    async switchNextWindow(): Promise<void> {
+        const page = await this.initPage()
+        const pages = page.context().pages()
+        await pages[pages.indexOf(page) + 1].bringToFront()
+    }
+
+    async closeOtherWindows(): Promise<void> {
+        const page = await this.initPage()
+        const pages = page.context().pages()
+        const index = pages.indexOf(page)
+        for (let page of pages) {
+            if (pages.indexOf(page) !== index) {
+                await page.close()
+            }
+        }
+    }
+
     async closePage(): Promise<void> {
         const page = await this.initPage()
         await page.close()
