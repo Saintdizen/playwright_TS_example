@@ -22,6 +22,6 @@ test.describe('example', () => {
         // }
         //
         await pages.examplePage.link2.click()
-        await pages.examplePage.textContainsPage('Playwright is a framework for Web Testing and Automation. It allows testing Chromium, Firefox and WebKit with a single API.')
+        await pages.examplePage.textContainsPage(['Playwright has its own test runner for end-to-end tests, we call it Playwright Test.'])
     });
 });
