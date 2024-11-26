@@ -6,7 +6,7 @@ test.describe('examplePDF', () => {
 
     // test.beforeEach(async ({ page }) => { /**/ });
 
-    test('examplePDF', async ({page}) => {
+    test('examplePDF', async () => {
         // ПУть до файла
         let absolutePathToFile = join(resolve("./"), "files", "file.pdf");
         console.log(absolutePathToFile) // /home/syzoth/WebstormProjects/playwright_TS_example/tests/file.pdf

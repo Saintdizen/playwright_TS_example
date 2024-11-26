@@ -12,6 +12,7 @@
     "@types/node": "^22.9.0",
     "allure-commandline": "^2.32.0",
     "allure-playwright": "^3.0.6",
-    "pdfreader": "^3.0.5"
+    "pdfreader": "^3.0.5",
+    "playwright-core": "^1.49.0"
   }
 }
