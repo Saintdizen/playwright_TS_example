@@ -4,20 +4,20 @@ test.describe('example', () => {
 
     // test.beforeEach(async ({ page }) => { /**/ });
 
-    test('example', async ({pages}) => {
-        await pages.examplePage.open(pages.examplePage.url)
+    test('example', async ({NikaZeBest}) => {
+        await NikaZeBest.examplePage.open(NikaZeBest.examplePage.url)
         //
-        await pages.examplePage.link1.click()
-        await pages.examplePage.check.toBeVisible()
-        await pages.examplePage.closePage()
+        await NikaZeBest.examplePage.link1.click()
+        await NikaZeBest.examplePage.check.toBeVisible()
+        await NikaZeBest.examplePage.browser().closeTab()
         //
-        await pages.examplePage.exampleFunction()
+        await NikaZeBest.examplePage.exampleFunction()
         //
-        for (let link of await pages.examplePage.links.getCollection()) {
+        for (let link of await NikaZeBest.examplePage.links.getCollection()) {
             console.log(await link.getAttribute('href'))
         }
         //
-        await pages.examplePage.link2.click()
-        await pages.examplePage.textContainsPage(['Playwright has its own test runner for end-to-end tests, we call it Playwright Test.'])
+        await NikaZeBest.examplePage.link2.click()
+        await NikaZeBest.examplePage.textContainsPage(['Playwright has its own test runner for end-to-end tests, we call it Playwright Test.'])
     });
 });
