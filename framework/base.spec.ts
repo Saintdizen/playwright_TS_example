@@ -1,22 +1,36 @@
 import {Page, expect} from "@playwright/test";
-import vars from "./vars.spec";
 
-export class BasePage {
-    constructor(readonly page: Page) {  }
+export class BaseBrowser {
+    page: Page;
+    pages: Page[] = [];
+
+    constructor() {}
+
+    setPage(page: Page) {
+        this.page = page
+    }
 
     async initPage(): Promise<Page> {
         return await new Promise(async (resolve) => {
             try {
-                vars.pages = await Promise.all([this.page.context().waitForEvent("page", {timeout: 750})])
-                resolve(vars.pages[vars.pages.length - 1]);
+                this.pages = await Promise.all([this.page.context().waitForEvent("page", {timeout: 750})])
+                resolve(this.pages[this.pages.length - 1]);
             } catch (e) {
-                resolve(vars.pages[vars.pages.length - 1] || this.page)
+                resolve(this.pages[this.pages.length - 1] || this.page)
             }
         })
     }
+}
+
+const browser = new BaseBrowser();
+
+export class BasePage {
+    constructor(readonly page: Page) {
+        browser.setPage(page)
+    }
 
     async textContainsPage(texts: string[]): Promise<void> {
-        const page = await this.initPage()
+        const page = await browser.initPage()
         for (let text of texts) {
             const element = page.getByText(text, {exact: true})
             await expect(element).toBeVisible();
@@ -24,18 +38,18 @@ export class BasePage {
     }
 
     async switchFirstWindow(): Promise<void> {
-        const page = await this.initPage()
+        const page = await browser.initPage()
         await page.context().pages()[0].bringToFront()
     }
 
     async switchNextWindow(): Promise<void> {
-        const page = await this.initPage()
+        const page = await browser.initPage()
         const pages = page.context().pages()
         await pages[pages.indexOf(page) + 1].bringToFront()
     }
 
     async closeOtherWindows(): Promise<void> {
-        const page = await this.initPage()
+        const page = await browser.initPage()
         const pages = page.context().pages()
         const index = pages.indexOf(page)
         for (let page of pages) {
@@ -46,10 +60,10 @@ export class BasePage {
     }
 
     async closePage(): Promise<void> {
-        const page = await this.initPage()
+        const page = await browser.initPage()
         await page.close()
-        vars.pages = []
-        const page1 = await this.initPage()
+        browser.pages = []
+        const page1 = await browser.initPage()
         await page1.bringToFront()
     }
 
@@ -62,74 +76,74 @@ export class BasePage {
     }
 
     element(xpath: string): Element {
-        return new Element(xpath, this.page);
+        return new Element(xpath);
     }
 
     a(text: string): Link {
-        return new Link(text, this.page);
+        return new Link(text);
     }
 
     button(text: string): Button {
-        return new Button(text, this.page);
+        return new Button(text);
     }
 }
 
-class BaseElement extends BasePage {
-    constructor(readonly locator: string, readonly page: Page) { super(page) }
+class BaseElement {
+    constructor(readonly xpath: string) { }
 
     // Действия
     async click(): Promise<void> {
-        const page = await this.initPage()
-        await page.locator(this.locator).click()
+        const page = await browser.initPage()
+        await page.locator(this.xpath).click()
     }
 
     async fill(text: string): Promise<void> {
-        const page = await this.initPage()
-        await page.locator(this.locator).fill(text)
+        const page = await browser.initPage()
+        await page.locator(this.xpath).fill(text)
     }
 
     //
     async getCollection() {
-        const page = await this.initPage()
-        return await page.locator(this.locator).all()
+        const page = await browser.initPage()
+        return await page.locator(this.xpath).all()
     }
 
     // Проверки
     async toBeVisible(): Promise<void> {
-        const page = await this.initPage()
-        await expect(page.locator(this.locator)).toBeVisible()
+        const page = await browser.initPage()
+        await expect(page.locator(this.xpath)).toBeVisible()
     }
 
     async toBeHidden(): Promise<void> {
-        const page = await this.initPage()
-        await expect(page.locator(this.locator)).toBeHidden()
+        const page = await browser.initPage()
+        await expect(page.locator(this.xpath)).toBeHidden()
     }
 
     async toBeEnabled(): Promise<void> {
-        const page = await this.initPage()
-        await expect(page.locator(this.locator)).toBeEnabled()
+        const page = await browser.initPage()
+        await expect(page.locator(this.xpath)).toBeEnabled()
     }
 
     async toBeDisabled(): Promise<void> {
-        const page = await this.initPage()
-        await expect(page.locator(this.locator)).toBeDisabled()
+        const page = await browser.initPage()
+        await expect(page.locator(this.xpath)).toBeDisabled()
     }
 }
 
 class Element extends BaseElement {
-    constructor(readonly locator: string, readonly page: Page) { super(locator, page) }
+    constructor(readonly xpath: string) {
+        super(xpath)
+    }
 }
 
 class Link extends BaseElement {
-    constructor(readonly text: string, readonly page: Page) { super(
-        `//a[text()='${text}'] | //a[@aria-label='${text}'] | //a[@id='${text}']`,
-        page)
+    constructor(readonly text: string) {
+        super(`//a[text()='${text}'] | //a[@aria-label='${text}'] | //a[@id='${text}']`)
     }
 }
 
 class Button extends BaseElement {
-    constructor(readonly text: string, readonly page: Page) { super(
-        `//button[text()='${text}'] | //button[@aria-label='${text}'] | //button[@id='${text}']`,
-        page)
+    constructor(readonly text: string) {
+        super(`//button[text()='${text}'] | //button[@aria-label='${text}'] | //button[@id='${text}']`)
     }
 }

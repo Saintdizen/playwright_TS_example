@@ -1,5 +1,5 @@
 import {Page} from "@playwright/test";
-import {ExamplePage} from "./examplePage.spec";
+import {ExamplePage} from "../pages/examplePage.spec";
 
 export class Pages {
     constructor(private page: Page) { }
