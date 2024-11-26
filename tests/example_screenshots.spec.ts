@@ -14,7 +14,7 @@ test.describe('exampleSCREENSHOTS', () => {
         });
         // После выполняем дейтсвия, которые приводят к изменению страницы
         // или просто открываем другую)
-        await page.goto('https://google.com/');
+        // await page.goto('https://google.com/');
         // Делаем снимок
         const afterImage = await page.screenshot({
             path: `./files/screenshots/after.png`
@@ -25,5 +25,13 @@ test.describe('exampleSCREENSHOTS', () => {
         // 1 массив данных первого снимка больше массива данных второго снимка
         // -1 массив данных первого снимка меньше массива данных второго снимка
         expect(Buffer.compare(beforeImage, afterImage)).toEqual(0);
+
+
+        // Вариант больше подходит для проверки открытия нужной страницы
+        await page.goto('https://playwright.dev/');
+        await expect(page).toHaveScreenshot();
+
+        // await page.goto('https://playwright.dev/');
+        // expect(await page.textContent("//body")).toMatchSnapshot("text.txt");
     });
 });
