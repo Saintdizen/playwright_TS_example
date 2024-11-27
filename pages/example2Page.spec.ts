@@ -1,9 +1,9 @@
 import {Link, Element} from "../framework/elements.spec";
-import {BasePage} from "../framework/base/basePage.spec";
 import {Page} from "@playwright/test";
+import {BasePage} from "../framework/base/basePage.spec";
 
 
-export class ExamplePage extends BasePage {
+export class ExampleTwoPage extends BasePage {
     constructor(readonly page: Page) { super(page) }
 
     readonly url: string = "https://playwright.dev/"

@@ -5,11 +5,11 @@ test.describe('example', () => {
     // test.beforeEach(async ({ page }) => { /**/ });
 
     test('example', async ({NikaZeBest}) => {
-        await NikaZeBest.examplePage.open(NikaZeBest.examplePage.url)
+        await NikaZeBest.examplePage.browser.open(NikaZeBest.examplePage.url)
         //
         await NikaZeBest.examplePage.link1.click()
         await NikaZeBest.examplePage.check.toBeVisible()
-        await NikaZeBest.examplePage.browser().closeTab()
+        await NikaZeBest.examplePage.browser.closeTab()
         //
         await NikaZeBest.examplePage.exampleFunction()
         //
