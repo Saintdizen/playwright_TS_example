@@ -134,4 +134,3 @@ dist
 /.idea
 package-lock.json
 /allure-results
-/files
