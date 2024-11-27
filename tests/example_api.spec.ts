@@ -7,19 +7,6 @@ test.describe('exampleAPI', () => {
 
     test('exampleAPI', async () => {
         // https://www.npmjs.com/package/axios
-        //
-        // axios.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-        //     .then(function (response) {
-        //         // handle success
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         // handle error
-        //         console.log(error);
-        //     })
-        //     .finally(function () {
-        //         // always executed
-        //     });
 
         // Можно так
         const responseGet = await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json');
